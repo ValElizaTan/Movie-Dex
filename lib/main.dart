@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:project_1/screen/aboutus.dart';
+import 'package:project_1/screen/registration.dart';
 
 import 'screen/drawer.dart';
 import 'screen/home.dart';
@@ -10,8 +13,10 @@ import 'screen/search.dart';
 import 'screen/aboutus.dart';
 import 'package:project_1/controllers/DrawerController.dart' as drawerControl;
 
-void main() {
+Future<void> main() async {
   Get.put(drawerControl.DrawerController());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -46,8 +51,10 @@ class _MyAppState extends State<MyApp> {
                 return Profile();
               case 4:
                 return AboutUs();
+              case 5:
+                return Register();
               default:
-                return Container();
+                return Login();
             }
           },
         ),

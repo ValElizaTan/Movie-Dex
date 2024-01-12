@@ -10,7 +10,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       //Use SizeBox to contain Drawer
-      width: MediaQuery.of(context).size.width * 0.8, 
+      width: MediaQuery.of(context).size.width * 0.8,
       child: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,32 +59,44 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.login),
               title: Text('Login'),
-              onTap: () => Get.find<DrawerControl.DrawerController>().changeScreen(0),
+              onTap: () =>
+                  Get.find<DrawerControl.DrawerController>().changeScreen(0),
             ),
             ListTile(
               leading: Icon(Icons.search),
               title: Text('Search'),
-              onTap: () => Get.find<DrawerControl.DrawerController>().changeScreen(1),
+              onTap: () =>
+                  Get.find<DrawerControl.DrawerController>().changeScreen(1),
             ),
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Home'),
-              onTap: () => Get.find<DrawerControl.DrawerController>().changeScreen(2),
+              onTap: () =>
+                  Get.find<DrawerControl.DrawerController>().changeScreen(2),
             ),
             ListTile(
               leading: Icon(Icons.person),
               title: Text('Profile'),
-              onTap: () => Get.find<DrawerControl.DrawerController>().changeScreen(3),
+              onTap: () =>
+                  Get.find<DrawerControl.DrawerController>().changeScreen(3),
             ),
             ListTile(
               leading: Icon(Icons.info_outline),
               title: Text('About Us'),
-              onTap: () => Get.find<DrawerControl.DrawerController>().changeScreen(4),
+              onTap: () =>
+                  Get.find<DrawerControl.DrawerController>().changeScreen(4),
+            ),
+            ListTile(
+              leading: Icon(Icons.app_registration),
+              title: Text('Register'),
+              onTap: () =>
+                  Get.find<DrawerControl.DrawerController>().changeScreen(5),
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
-              onTap: () => Get.find<DrawerControl.DrawerController>().changeScreen(0),
+              onTap: () =>
+                  Get.find<DrawerControl.DrawerController>().changeScreen(0),
             ),
           ],
         ),
