@@ -32,7 +32,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  shared_preferences: ^0.5.0
+  firebase_core:
+  firebase_auth:
+  cloud_firestore: 
+  fluttertoast:
+  image_picker:
+  firebase_storage:
+  location:
+  google_maps_flutter: ^0.5.19
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
