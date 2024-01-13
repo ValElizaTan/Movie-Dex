@@ -34,7 +34,7 @@ const ButtonTextStyle = TextStyle(
   fontFamily: FontNameDefault,
   fontWeight: FontWeight.w600,
   fontSize: ButtonTextSize,
-  color: Colors.white,
+  color: Colors.blue,
 );
 
 const AppFont = TextStyle(
