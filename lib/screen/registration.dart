@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_1/services/firebaseauth_service.dart';
-import 'package:project_1/utility/dialogutil.dart';
 
 import '../style.dart';
 import 'home.dart';
@@ -81,6 +80,7 @@ class _RegisterState extends State<Register> {
               ),
             ),
             RaisedButton(
+              color: Colors.lightBlueAccent[100],
               padding: EdgeInsets.fromLTRB(100, 10, 100, 20),
               onPressed: () async {
                 if (validateFields()) {

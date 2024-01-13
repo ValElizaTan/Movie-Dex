@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_1/screen/registration.dart';
 import 'package:project_1/services/firebaseauth_service.dart';
-import 'package:project_1/utility/dialogutil.dart';
 
 import '../style.dart';
 import 'home.dart';
@@ -82,6 +80,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             RaisedButton(
+              color: Colors.lightBlueAccent[100],
               padding: EdgeInsets.fromLTRB(100, 10, 100, 20),
               onPressed: () async {
                 if (validateFields()) {
@@ -120,7 +119,7 @@ class _LoginState extends State<Login> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Register()),
+                  MaterialPageRoute(builder: (context) => Login()),
                 );
               },
               child: Text("Have an account? Sign In"),
