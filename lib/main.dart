@@ -25,7 +25,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String title = 'Movie Dex';
   int index = 0;
   List<Widget> list = [Login(), Search(), Home(), Profile(), AboutUs()];
 
@@ -39,9 +38,6 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
         body: GetX<drawerControl.DrawerController>(
           builder: (controller) {
             switch (controller.currentScreenIndex.value) {

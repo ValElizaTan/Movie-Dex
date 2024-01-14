@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/DrawerController.dart' as DrawerControl;
 
+import 'aboutus.dart';
+import 'home.dart';
+import 'login.dart';
+import 'profile.dart';
+import 'registration.dart';
+
 class MyDrawer extends StatelessWidget {
   final Function onTap;
   MyDrawer({this.onTap});
@@ -57,6 +63,36 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
+            title: Text('Home'),
+            onTap: () {
+              Get.offAll(() => Home());
+            },
+          ),
+          ListTile(
+            title: Text('Login'),
+            onTap: () {
+              Get.offAll(() => Login());
+            },
+          ),
+          ListTile(
+            title: Text('Profile'),
+            onTap: () {
+              Get.offAll(() => Profile());
+            },
+          ),
+          ListTile(
+            title: Text('Registration'),
+            onTap: () {
+              Get.offAll(() => Register());
+            },
+          ),
+          ListTile(
+            title: Text('About Us'),
+            onTap: () {
+              Get.offAll(() => AboutUs());
+            },
+          ),
+            /* ListTile(
               leading: Icon(Icons.login),
               title: Text('Login'),
               onTap: () =>
@@ -97,7 +133,7 @@ class MyDrawer extends StatelessWidget {
               title: Text('Logout'),
               onTap: () =>
                   Get.find<DrawerControl.DrawerController>().changeScreen(0),
-            ),
+            ), */
           ],
         ),
       ),

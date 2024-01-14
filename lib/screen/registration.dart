@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_1/screen/home.dart';
+import 'package:project_1/screen/login.dart';
 import 'package:project_1/services/firebaseauth_service.dart';
 
 import '../style.dart';
-import 'home.dart';
-import 'login.dart';
+import 'drawer.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -14,19 +16,23 @@ class _RegisterState extends State<Register> {
   //Controllers for email & pwd
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController cfmpasswordController = TextEditingController();
 
   bool signUp = true;
   bool _passwordVisible;
 
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Movie Dex ❤️'),
+      ),
+      drawer: MyDrawer(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -80,8 +86,6 @@ class _RegisterState extends State<Register> {
               ),
             ),
             RaisedButton(
-              color: Colors.lightBlueAccent[100],
-              padding: EdgeInsets.fromLTRB(100, 10, 100, 20),
               onPressed: () async {
                 if (validateFields()) {
                   if (signUp) {
@@ -90,37 +94,20 @@ class _RegisterState extends State<Register> {
                       password: passwordController.text.trim(),
                     );
                     if (newuser != null) {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
-                    }
-                  } else {
-                    var reguser = await FirebaseAuthService().signIn(
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim(),
-                    );
-                    if (reguser != null) {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
+                      Get.offAll(() => Home());
                     }
                   }
                 }
               },
-              child: Text(
-                signUp ? 'Sign Up' : 'Sign In',
-                style: ButtonTextStyle,
-              ),
+              child: Text('Sign Up', style: ButtonTextStyle),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
+                print("Navigating to Login screen from Register");
+                Get.to(() => Login());
               },
               child: Text("Have an account? Sign In"),
             ),

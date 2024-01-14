@@ -5,6 +5,7 @@ import 'package:project_1/screen/trending.dart';
 import 'package:project_1/utility/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
+import 'drawer.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -48,20 +49,21 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          title: modified_text(text: 'Movie Dex ❤️'),
-          backgroundColor: Colors.transparent,
-        ),
-        body: ListView(
-          children: [
-            TrendingMovies(
-              trending: trendingmovies,
-            ),
-            TopRatedMovies(
-              toprated: topratedmovies,
-            ),
-          ],
-        ),);
+      appBar: AppBar(
+        title: Text('Movie Dex ❤️'),
+      ),
+      drawer: MyDrawer(),
+      backgroundColor: Colors.black,
+      body: ListView(
+        children: [
+          TrendingMovies(
+            trending: trendingmovies,
+          ),
+          TopRatedMovies(
+            toprated: topratedmovies,
+          ),
+        ],
+      ),
+    );
   }
 }
