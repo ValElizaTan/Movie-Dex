@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/DrawerController.dart' as DrawerControl;
+import 'package:project_1/controllers/UserController.dart';
 
 import 'aboutus.dart';
 import 'home.dart';
@@ -10,6 +11,7 @@ import 'registration.dart';
 import 'search.dart';
 
 class MyDrawer extends StatelessWidget {
+  UserController userController = Get.find<UserController>();
   final Function onTap;
   MyDrawer({this.onTap});
 
@@ -45,12 +47,14 @@ class MyDrawer extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    Text(
-                      'Super Hero',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                    Obx(
+                      () => Text(
+                        '${userController.firstName} ${userController.lastName}',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
                     SizedBox(
                       height: 3,
@@ -64,47 +68,33 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Login'),
-              onTap: () =>
-                  Get.offAll(() => Login())
-            ),
+                leading: Icon(Icons.login),
+                title: Text('Login'),
+                onTap: () => Get.offAll(() => Login())),
             ListTile(
-              leading: Icon(Icons.search),
-              title: Text('Search'),
-              onTap: () =>
-                  Get.offAll(() => Search())
-            ),
+                leading: Icon(Icons.search),
+                title: Text('Search'),
+                onTap: () => Get.offAll(() => Search())),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () =>
-                  Get.offAll(() => Home())
-            ),
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+                onTap: () => Get.offAll(() => Home())),
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Profile'),
-              onTap: () =>
-                  Get.offAll(() => Profile())
-            ),
+                leading: Icon(Icons.person),
+                title: Text('Profile'),
+                onTap: () => Get.offAll(() => Profile())),
             ListTile(
-              leading: Icon(Icons.info_outline),
-              title: Text('About Us'),
-              onTap: () =>
-                  Get.offAll(() => AboutUs())
-            ),
+                leading: Icon(Icons.info_outline),
+                title: Text('About Us'),
+                onTap: () => Get.offAll(() => AboutUs())),
             ListTile(
-              leading: Icon(Icons.app_registration),
-              title: Text('Register'),
-              onTap: () =>
-                  Get.offAll(() => Register())
-            ),
+                leading: Icon(Icons.app_registration),
+                title: Text('Register'),
+                onTap: () => Get.offAll(() => Register())),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Logout'),
-              onTap: () =>
-                  Get.offAll(() => Login())
-            ),
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Logout'),
+                onTap: () => Get.offAll(() => Login())),
           ],
         ),
       ),

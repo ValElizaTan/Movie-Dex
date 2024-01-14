@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/DrawerController.dart' as DrawerControl;
 import 'package:project_1/controllers/UserController.dart';
+import 'package:getwidget/getwidget.dart';
 
 import '../style.dart';
 import 'drawer.dart';
@@ -34,7 +35,7 @@ class _ProfileState extends State<Profile> {
               fit: BoxFit.contain,
             ),
             Text(
-              'Welcome',
+              'Hello,',
               style: TitleTextStyle,
             ),
             Obx(() => Text(
@@ -42,11 +43,14 @@ class _ProfileState extends State<Profile> {
                   style: TitleTextStyle,
                 )),
             SizedBox(height: 20),
-            ElevatedButton(
+            GFButton(
               onPressed: () {
                 Get.to(() => EditProfile());
               },
-              child: Text('Edit Profile'),
+              text: "Edit Profile",
+              shape: GFButtonShape.pills,
+              icon: Icon(Icons.edit),
+              color: Colors.purpleAccent[700],
             ),
           ],
         ),

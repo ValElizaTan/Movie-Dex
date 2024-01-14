@@ -43,6 +43,7 @@ dev_dependencies:
   google_maps_flutter: ^0.5.19
   tmdb_api: 
   google_fonts:
+  getwidget:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

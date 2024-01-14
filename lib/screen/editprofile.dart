@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/UserController.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:getwidget/getwidget.dart';
 
 import '../style.dart';
 import 'drawer.dart';
@@ -32,32 +32,36 @@ class EditProfile extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Edit Profile',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Edit Profile',
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
+                    Image(
+                      image: AssetImage("images/editprofile.gif"),
+                      width: 60,
+                      height: 60,
+                    ),
+                  ],
                 ),
                 SizedBox(height: 30),
                 containerForm('First Name:', firstName),
                 SizedBox(height: 15),
                 containerForm('Last Name:', lastName),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: FlatButton(
-                    padding: EdgeInsets.fromLTRB(120, 10, 120, 20),
-                    onPressed: () {
-                      userController.updateFirstName(firstName.text);
-                      userController.updateLastName(lastName.text);
-                      Get.off(Profile());
-                    },
-                    color: Colors.cyan[400],
-                    child: Text(
-                      'Save Profile',
-                      style: ButtonTextStyle,
-                    ),
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                  ),
+                SizedBox(height: 30),
+                GFButton(
+                  onPressed: () {
+                    userController.updateFirstName(firstName.text);
+                    userController.updateLastName(lastName.text);
+                    Get.off(Profile());
+                  },
+                  text: "Save Profile",
+                  shape: GFButtonShape.pills,
+                  icon: Icon(Icons.save_alt_rounded),
+                  color: Colors.purpleAccent[700],
                 ),
               ],
             ),
@@ -66,18 +70,6 @@ class EditProfile extends StatelessWidget {
       ),
     );
   }
-
-  //  SAVE
-  /* save() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-
-    if (firstName.text != '') {
-      await sp.setString('firstName', firstName.text);
-    }
-    if (lastName.text != '') {
-      await sp.setString('lastName', lastName.text);
-    }
-  } */
 
   //  VALIDATION
   final RegExp nameRegex =
