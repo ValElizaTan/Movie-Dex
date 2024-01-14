@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:project_1/screen/aboutus.dart';
 import 'package:project_1/screen/registration.dart';
 
+import 'controllers/UserController.dart';
 import 'screen/drawer.dart';
 import 'screen/home.dart';
 import 'screen/login.dart';
@@ -16,6 +17,7 @@ Future<void> main() async {
   Get.put(drawerControl.DrawerController());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Get.put(UserController());
   runApp(MyApp());
 }
 

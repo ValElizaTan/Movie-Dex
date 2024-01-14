@@ -7,6 +7,7 @@ import 'home.dart';
 import 'login.dart';
 import 'profile.dart';
 import 'registration.dart';
+import 'search.dart';
 
 class MyDrawer extends StatelessWidget {
   final Function onTap;
@@ -63,77 +64,47 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-            title: Text('Home'),
-            onTap: () {
-              Get.offAll(() => Home());
-            },
-          ),
-          ListTile(
-            title: Text('Login'),
-            onTap: () {
-              Get.offAll(() => Login());
-            },
-          ),
-          ListTile(
-            title: Text('Profile'),
-            onTap: () {
-              Get.offAll(() => Profile());
-            },
-          ),
-          ListTile(
-            title: Text('Registration'),
-            onTap: () {
-              Get.offAll(() => Register());
-            },
-          ),
-          ListTile(
-            title: Text('About Us'),
-            onTap: () {
-              Get.offAll(() => AboutUs());
-            },
-          ),
-            /* ListTile(
               leading: Icon(Icons.login),
               title: Text('Login'),
               onTap: () =>
-                  Get.find<DrawerControl.DrawerController>().changeScreen(0),
+                  Get.offAll(() => Login())
             ),
             ListTile(
               leading: Icon(Icons.search),
               title: Text('Search'),
               onTap: () =>
-                  Get.find<DrawerControl.DrawerController>().changeScreen(1),
+                  Get.offAll(() => Search())
             ),
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () =>
-                  Get.find<DrawerControl.DrawerController>().changeScreen(2),
+                  Get.offAll(() => Home())
             ),
             ListTile(
               leading: Icon(Icons.person),
               title: Text('Profile'),
               onTap: () =>
-                  Get.find<DrawerControl.DrawerController>().changeScreen(3),
+                  Get.offAll(() => Profile())
             ),
             ListTile(
               leading: Icon(Icons.info_outline),
               title: Text('About Us'),
               onTap: () =>
-                  Get.find<DrawerControl.DrawerController>().changeScreen(4),
+                  Get.offAll(() => AboutUs())
             ),
             ListTile(
               leading: Icon(Icons.app_registration),
               title: Text('Register'),
               onTap: () =>
-                  Get.find<DrawerControl.DrawerController>().changeScreen(5),
+                  Get.offAll(() => Register())
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
               onTap: () =>
-                  Get.find<DrawerControl.DrawerController>().changeScreen(0),
-            ), */
+                  Get.offAll(() => Login())
+            ),
           ],
         ),
       ),

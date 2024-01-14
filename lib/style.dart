@@ -20,7 +20,7 @@ const TitleTextStyle = TextStyle(
   fontFamily: FontNameDefault,
   fontWeight: FontWeight.bold,
   fontSize: LargeTextSize,
-  color: Colors.black,
+  color: Colors.white,
 );
 
 const Body1TextStyle = TextStyle(
