@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:project_1/controllers/UserController.dart';
 import 'package:getwidget/getwidget.dart';
 
-import '../style.dart';
 import 'drawer.dart';
 import 'profile.dart';
 

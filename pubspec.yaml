@@ -37,13 +37,14 @@ dev_dependencies:
   firebase_auth:
   cloud_firestore: 
   fluttertoast:
-  image_picker:
   firebase_storage:
+  image_picker:
+  google_fonts:
+  getwidget:
   location:
   google_maps_flutter: ^0.5.19
   tmdb_api: 
-  google_fonts:
-  getwidget:
+  http: 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

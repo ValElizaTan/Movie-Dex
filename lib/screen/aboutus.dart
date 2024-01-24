@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../style.dart';
 import 'drawer.dart';
 
 class AboutUs extends StatelessWidget {

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/DrawerController.dart' as DrawerControl;
 import 'package:project_1/controllers/UserController.dart';
+import 'package:project_1/screen/map.dart';
 
 import 'aboutus.dart';
 import 'home.dart';
 import 'login.dart';
 import 'profile.dart';
-import 'registration.dart';
 import 'search.dart';
+import 'searchtheatre.dart';
 
 class MyDrawer extends StatelessWidget {
   UserController userController = Get.find<UserController>();
@@ -88,9 +89,9 @@ class MyDrawer extends StatelessWidget {
                 title: Text('About Us'),
                 onTap: () => Get.offAll(() => AboutUs())),
             ListTile(
-                leading: Icon(Icons.app_registration),
-                title: Text('Register'),
-                onTap: () => Get.offAll(() => Register())),
+                leading: Icon(Icons.map_sharp),
+                title: Text('Search Theatre'),
+                onTap: () => Get.offAll(() => SearchTheatre())),
             ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Logout'),

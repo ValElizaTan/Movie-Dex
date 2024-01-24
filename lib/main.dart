@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_1/screen/aboutus.dart';
-import 'package:project_1/screen/registration.dart';
 
 import 'controllers/UserController.dart';
 import 'screen/drawer.dart';
@@ -12,6 +11,8 @@ import 'screen/profile.dart';
 import 'screen/search.dart';
 import 'screen/aboutus.dart';
 import 'package:project_1/controllers/DrawerController.dart' as drawerControl;
+
+import 'screen/searchtheatre.dart';
 
 Future<void> main() async {
   Get.put(drawerControl.DrawerController());
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
               case 4:
                 return AboutUs();
               case 5:
-                return Register();
+                return SearchTheatre();
               default:
                 return Login();
             }

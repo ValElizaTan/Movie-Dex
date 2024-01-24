@@ -1,5 +1,5 @@
 /* import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_firestoreapp/model/book.dart';
+import 'package:project_1/screen/addtheatre.dart';
 
 class FirestoreService {
   // Create a CollectionReference call bookCollection that references
@@ -19,12 +19,12 @@ class FirestoreService {
     });
   }
 
-  Future<List<Book>> readBookData() async {
-    List<Book> bookList = [];
+  Future<List<AddTheatre>> readBookData() async {
+    List<AddTheatre> bookList = [];
     QuerySnapshot snapshot = await bookCollection.get();
 
     snapshot.docs.forEach((document) {
-      Book book = Book.fromMap(document.data());
+      AddTheatre book = AddTheatre.fromMap(document.data());
       bookList.add(book);
     });
     print('Booklist: $bookList');

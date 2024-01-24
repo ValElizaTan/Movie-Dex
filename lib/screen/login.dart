@@ -30,9 +30,9 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movie Dex ❤️'),
+        title: Text('Movie Dex - Login'),
       ),
-      drawer: MyDrawer(),
+      /* drawer: MyDrawer(), */
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

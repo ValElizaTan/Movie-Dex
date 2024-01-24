@@ -7,6 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  <!-- seek user permission -->
     <application>
         <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyD9mpzAb0C_AXqNx7NAUlrni5RH_4tHX20"/>
+        android:value="AIzaSyDHNPFTOAgycjGi7tdPTnxWUJy8FAe0koE"/>
     </application>
 </manifest>
