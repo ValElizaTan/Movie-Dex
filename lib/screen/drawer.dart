@@ -8,7 +8,6 @@ import 'aboutus.dart';
 import 'home.dart';
 import 'login.dart';
 import 'profile.dart';
-import 'search.dart';
 import 'searchtheatre.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -72,10 +71,6 @@ class MyDrawer extends StatelessWidget {
                 leading: Icon(Icons.login),
                 title: Text('Login'),
                 onTap: () => Get.offAll(() => Login())),
-            ListTile(
-                leading: Icon(Icons.search),
-                title: Text('Search'),
-                onTap: () => Get.offAll(() => Search())),
             ListTile(
                 leading: Icon(Icons.home),
                 title: Text('Home'),

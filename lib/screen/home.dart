@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_1/screen/toprated.dart';
 import 'package:project_1/screen/trending.dart';
 
@@ -131,18 +132,110 @@ class SearchResults extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: searchResults
-          .map((result) => ListTile(
-                title: Text(result['title'] ??
-                    'Title not available'), // Provide a default value if result['title'] is null
-                subtitle: Text(result['overview'] ??
-                    'Overview not available'), // Provide a default value if result['overview'] is null
-                leading: result['poster_path'] != null
-                    ? Image.network(
-                        'https://image.tmdb.org/t/p/w92${result['poster_path']}',
-                      )
-                    : Container(), // You can replace Container() with a placeholder image or text
-              ))
+          .map(
+            (result) => ListTile(
+              title: Text(result['title'] ?? 'Title not available'),
+              subtitle: Text(result['overview'] ?? 'Overview not available'),
+              leading: result['poster_path'] != null
+                  ? Image.network(
+                      'https://image.tmdb.org/t/p/w92${result['poster_path']}',
+                    )
+                  : Container(),
+              onTap: () {
+                Get.to(() => DescriptionScreen(result: result));
+              },
+            ),
+          )
           .toList(),
+    );
+  }
+}
+
+class DescriptionScreen extends StatelessWidget {
+  final dynamic result;
+
+  DescriptionScreen({this.result});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: ListView(
+        children: [
+          Container(
+            height: 250,
+            child: Stack(
+              children: [
+                Positioned(
+                  child: Container(
+                    height: 250,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.network(
+                      'https://image.tmdb.org/t/p/original${result['backdrop_path']}',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  child: Text(
+                    '⭐ Average Rating - ${result['vote_average'] ?? 'Not available'}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 15),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              result['title'] ?? 'Not Loaded',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              'Releasing On - ${result['release_date'] ?? 'Not available'}',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Container(
+                height: 200,
+                width: 100,
+                child: Image.network(
+                  'https://image.tmdb.org/t/p/w300${result['poster_path']}',
+                ),
+              ),
+              Flexible(
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    result['overview'] ?? 'Not available',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

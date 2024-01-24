@@ -69,7 +69,7 @@ class _RegisterState extends State<Register> {
                       _passwordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).accentColor,
                     ),
                     onPressed: () {
                       setState(() {
@@ -107,7 +107,7 @@ class _RegisterState extends State<Register> {
             RaisedButton(
               onPressed: () {
                 print("Navigating to Login screen from Register");
-                Get.to(() => Login());
+                Get.offAll(() => Login());
               },
               child: Text("Have an account? Sign In"),
             ),

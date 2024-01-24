@@ -8,7 +8,6 @@ import 'screen/drawer.dart';
 import 'screen/home.dart';
 import 'screen/login.dart';
 import 'screen/profile.dart';
-import 'screen/search.dart';
 import 'screen/aboutus.dart';
 import 'package:project_1/controllers/DrawerController.dart' as drawerControl;
 
@@ -29,7 +28,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int index = 0;
-  List<Widget> list = [Login(), Search(), Home(), Profile(), AboutUs()];
+  List<Widget> list = [Login(), Home(), Profile(), AboutUs()];
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +46,12 @@ class _MyAppState extends State<MyApp> {
               case 0:
                 return Login();
               case 1:
-                return Search();
-              case 2:
                 return Home();
-              case 3:
+              case 2:
                 return Profile();
-              case 4:
+              case 3:
                 return AboutUs();
-              case 5:
+              case 4:
                 return SearchTheatre();
               default:
                 return Login();

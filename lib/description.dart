@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_1/utility/text.dart';
+
+import 'screen/ticket.dart';
 
 class Description extends StatelessWidget {
   final String name, description, bannerurl, posterurl, vote, launch_on;
@@ -58,7 +61,13 @@ class Description extends StatelessWidget {
                     child: modified_text(text: description, size: 18)),
               ),
             ],
-          )
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Get.to(() => Tickets());
+            },
+            child: Text('Buy Ticket'),
+          ),
         ]),
       ),
     );
