@@ -9,28 +9,27 @@ class CartController extends GetxController {
   int get count => _cart.length > 0 ? _cart.values.reduce((a, b) => a + b) : 0;
 
   // Business logic
-  void addToCart(String imageName, int size, int quantity, String imagePath) {
-    String cartKey = '$imageName';
+  void addToCart(String ticketName, int name, int quantity, double price) {
+    String cartKey = '$ticketName';
     if (_cart.containsKey(cartKey)) {
-      if (_cart[cartKey]['size'] == size) {
+      if (_cart[cartKey]['name'] == name) {
         _cart[cartKey]['quantity'] += quantity;
       } else {
-        _cart[cartKey]['size'] = size;
+        _cart[cartKey]['name'] = name;
         _cart[cartKey]['quantity'] = quantity;
       }
     } else {
       _cart[cartKey] = {
-        'imageName': imageName,
-        'size': size,
+        'name': name,
         'quantity': quantity,
-        'imagePath': imagePath,
+        'price': price,
       };
     }
     update();
   }
 
-  void remove(String imageName) {
-    String cartKey = '$imageName';
+  void remove(String ticketName) {
+    String cartKey = '$ticketName';
     if (_cart.containsKey(cartKey)) {
       if (_cart[cartKey]['quantity'] > 0) {
         // Remove 1 item from the cart
@@ -51,8 +50,8 @@ class CartController extends GetxController {
     }
   }
 
-  int getQuantity(String imageName) {
-    String cartKey = '$imageName';
+  int getQuantity(String ticketName) {
+    String cartKey = '$ticketName';
     if (_cart.containsKey(cartKey)) {
       return _cart[cartKey]['quantity'];
     } else {

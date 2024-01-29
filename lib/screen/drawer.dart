@@ -56,13 +56,6 @@ class MyDrawer extends StatelessWidget {
                             color: Colors.white),
                       ),
                     ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      'super_hero@nyp.edu.sg',
-                      style: TextStyle(fontSize: 12, color: Colors.white),
-                    ),
                   ],
                 ),
               ),

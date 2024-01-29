@@ -1,17 +1,15 @@
-import 'package:shared_preferences/shared_preferences.dart';
+/* import 'package:shared_preferences/shared_preferences.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'CartController.dart';
+import '../controllers/CartController.dart';
 import 'CartPage.dart';
 
 class DetailPage extends StatefulWidget {
-  final String imageTag;
-  final String imagePath;
   final String imageName;
 
-  const DetailPage({Key key, this.imageTag, this.imagePath, this.imageName})
+  const DetailPage({Key key, this.imageName})
       : super(key: key);
 
   @override
@@ -101,20 +99,6 @@ class _DetailPageState extends State<DetailPage> {
         children: [
           SizedBox(
             height: 30,
-          ),
-
-          //  Image with Hero Animation
-          Container(
-            alignment: Alignment.center,
-            child: Hero(
-              tag: widget.imageTag,
-              child: Image.asset(
-                widget.imagePath,
-                width: 300,
-                height: 280,
-                fit: BoxFit.contain,
-              ),
-            ),
           ),
 
           //  Image Name
@@ -265,3 +249,4 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 }
+ */

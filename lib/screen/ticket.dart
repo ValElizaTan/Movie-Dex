@@ -30,69 +30,70 @@ class Tickets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Tickets'),
       ),
       body: ListView.builder(
+        itemCount: _ticketName.length,
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             splashColor: Colors.blueAccent,
             highlightColor: Colors.blueAccent.withOpacity(1.0),
-            child: _buildGridCards(index, 'images/shoe_${index + 1}.jpg',
-                _ticketName[index], _ticketPrice[index]),
+            child:
+                _buildGridCards(index, _ticketName[index], _ticketPrice[index]),
           );
         },
       ),
     );
   }
 
-  Widget _buildGridCards(
-      int index, String imgPath, String ticketName, String ticketPrice) {
+  Widget _buildGridCards(int index, String ticketName, String ticketPrice) {
     return Card(
       color: Colors.white,
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: Row(
-        children: [
-          //  Text
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
-              //  Ticket Name
+              // Ticket Name
               Text(
                 ticketName,
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-
-              //  Price
+              Spacer(),
+              // Price
               Text(
                 ticketPrice,
-                style: TextStyle(fontSize: 16.0),
+                style: TextStyle(color: Colors.black, fontSize: 16.0),
+              ),
+              Spacer(),
+              // Add Btn
+              IconButton(
+                icon: Icon(
+                  Icons.add_circle,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  /* Get.to(
+                  () => DetailPage(
+                    imageName: _ticketName[index],
+                  ),
+                ); */
+                },
               ),
             ],
           ),
-          Spacer(),
-
-          //  Add Btn
-          IconButton(
-            icon: Icon(
-              Icons.add_circle,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Get.to(
-                () => DetailPage(
-                  imageName: _ticketName[index],
-                ),
-              );
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

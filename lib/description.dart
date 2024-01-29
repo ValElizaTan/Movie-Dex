@@ -23,8 +23,9 @@ class Description extends StatelessWidget {
       body: Container(
         child: ListView(children: [
           Container(
-              height: 250,
-              child: Stack(children: [
+            height: 250,
+            child: Stack(
+              children: [
                 Positioned(
                   child: Container(
                     height: 250,
@@ -36,18 +37,29 @@ class Description extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                    bottom: 10,
-                    child: modified_text(text: '⭐ Average Rating - ' + vote)),
-              ])),
+                  bottom: 10,
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: modified_text(text: '⭐ Average Rating - ' + vote, size: 16,),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: 15),
           Container(
-              padding: EdgeInsets.all(10),
-              child: modified_text(
-                  text: name != null ? name : 'Not Loaded', size: 24)),
+            padding: EdgeInsets.all(10),
+            child: modified_text(
+                text: name != null ? name : 'Not Loaded', size: 24),
+          ),
           Container(
-              padding: EdgeInsets.only(left: 10),
-              child:
-                  modified_text(text: 'Releasing On - ' + launch_on, size: 14)),
+            padding: EdgeInsets.only(left: 10),
+            child: modified_text(text: 'Released On - ' + launch_on, size: 14),
+          ),
           Row(
             children: [
               Container(
@@ -57,8 +69,9 @@ class Description extends StatelessWidget {
               ),
               Flexible(
                 child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: modified_text(text: description, size: 18)),
+                  padding: EdgeInsets.all(10),
+                  child: modified_text(text: description, size: 18),
+                ),
               ),
             ],
           ),
