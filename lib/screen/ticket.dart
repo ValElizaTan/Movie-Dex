@@ -1,114 +1,99 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/* class Tickets extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Buy Tickets'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              // Handle cart icon tap
-            },
-          ),
-        ],
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Handle buy ticket button tap
-          },
-          child: Text('Buy Ticket'),
-        ),
-      ),
-    );
-  }
-} */
+import 'DetailPage.dart';
+
 class Tickets extends StatelessWidget {
-  final TicketController ticketController = Get.put(TicketController());
+  final _ticketName = [
+    'Shaw Theatres - Adults',
+    'Shaw Theatres - Students',
+    'Shaw Theatres - Senior Citizens',
+    'Golden Village - Adults',
+    'Golden Village - Students',
+    'Golden Village - Senior Citizens',
+    'Cathay Cineplexes  - Adults',
+    'Cathay Cineplexes  - Students',
+    'Cathay Cineplexes  - Senior Citizens'
+  ];
+
+  final _ticketPrice = [
+    '\$8.50',
+    '\$6.50',
+    '\$4.00',
+    '\$9.00',
+    '\$7.00',
+    '\$5.00',
+    '\$9.00',
+    '\$7.00',
+    '\$5.00'
+  ];
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Buy Tickets'),
-        actions: [
+        title: Text('Tickets'),
+      ),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            splashColor: Colors.blueAccent,
+            highlightColor: Colors.blueAccent.withOpacity(1.0),
+            child: _buildGridCards(index, 'images/shoe_${index + 1}.jpg',
+                _ticketName[index], _ticketPrice[index]),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildGridCards(
+      int index, String imgPath, String ticketName, String ticketPrice) {
+    return Card(
+      color: Colors.white,
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          //  Text
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              //  Ticket Name
+              Text(
+                ticketName,
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
+
+              //  Price
+              Text(
+                ticketPrice,
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ],
+          ),
+          Spacer(),
+
+          //  Add Btn
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(
+              Icons.add_circle,
+              color: Colors.black,
+            ),
             onPressed: () {
-              Get.to(CartScreen());
+              Get.to(
+                () => DetailPage(
+                  imageName: _ticketName[index],
+                ),
+              );
             },
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                ticketController.addToCart('Ticket 1');
-              },
-              child: Text('Buy Ticket 1'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                ticketController.addToCart('Ticket 2');
-              },
-              child: Text('Buy Ticket 2'),
-            ),
-          ],
-        ),
-      ),
     );
   }
-}
-
-class CartScreen extends StatelessWidget {
-  final TicketController ticketController = Get.find();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Shopping Cart'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: ticketController.cartCount,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(ticketController.cartItems[index]),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                Get.back(); // Close the cart screen
-              },
-              child: Text('Checkout (${ticketController.cartCount} items)'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TicketController extends GetxController {
-  var cartItems = <String>[].obs;
-
-  void addToCart(String ticket) {
-    cartItems.add(ticket);
-  }
-
-  int get cartCount => cartItems.length;
 }

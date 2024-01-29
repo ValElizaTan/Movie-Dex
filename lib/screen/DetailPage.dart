@@ -1,0 +1,267 @@
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:badges/badges.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'CartController.dart';
+import 'CartPage.dart';
+
+class DetailPage extends StatefulWidget {
+  final String imageTag;
+  final String imagePath;
+  final String imageName;
+
+  const DetailPage({Key key, this.imageTag, this.imagePath, this.imageName})
+      : super(key: key);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  List<String> sizes = ['36', '37', '38', '39', '40'];
+  //  ToggleBTN shoesize
+  List<bool> isSelected = [false, false, false, false, false];
+  //  Shoesize selected
+  bool isSizeSelected = false;
+  //  Quantity selected
+  bool isQuantitySelected = false;
+  String selectedSize = '';
+
+  @override
+  //  SharedPreference: store user data
+  void initState() {
+    super.initState();
+    loadSelectedSize();
+  }
+
+  Future<void> loadSelectedSize() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedSize = prefs.getString('selectedSize') ?? '';
+      isSizeSelected = selectedSize.isNotEmpty;
+
+      // Update Selected based on Size
+      if (isSizeSelected) {
+        int selectedIndex = sizes.indexOf(selectedSize);
+        for (int i = 0; i < isSelected.length; i++) {
+          isSelected[i] = i == selectedIndex;
+        }
+      }
+    });
+  }
+
+  Future<void> saveSelectedSize(String size) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedSize', size);
+  }
+
+  Widget build(BuildContext context) {
+    //  Inject GetXController
+    var cartController = Get.put(CartController());
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Details'),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            //  Orange Btn + Cart Icon
+            child: Badge(
+              badgeColor: Colors.orange.withOpacity(1),
+              position: BadgePosition.topEnd(top: 0, end: 5),
+              badgeContent: Obx(
+                () => Text(
+                  cartController.cartCount.toString(),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: isSizeSelected && isQuantitySelected
+                      ? Colors.white
+                      : Colors.black26,
+                ),
+                onPressed: isSizeSelected && isQuantitySelected
+                    ? () {
+                        Get.to(() => CartPage());
+                      }
+                    : null,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 30,
+          ),
+
+          //  Image with Hero Animation
+          Container(
+            alignment: Alignment.center,
+            child: Hero(
+              tag: widget.imageTag,
+              child: Image.asset(
+                widget.imagePath,
+                width: 300,
+                height: 280,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+
+          //  Image Name
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              widget.imageName,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+
+          //  Shoe Size Container
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'Shoe Size:',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                ToggleButtons(
+                  children: List.generate(
+                    sizes.length,
+                    (index) => _buildSizeToggleButton(index),
+                  ),
+                  isSelected: isSelected,
+                  onPressed: (int index) async {
+                    setState(() {
+                      for (int i = 0; i < isSelected.length; i++) {
+                        isSelected[i] = i == index;
+                      }
+                      selectedSize = sizes[index];
+                      isSizeSelected = true;
+                      if (isQuantitySelected) {
+                        cartController.addToCart(
+                          widget.imageName,
+                          int.parse(selectedSize),
+                          cartController.getQuantity(widget.imageName),
+                          widget.imagePath,
+                        );
+                      }
+                    });
+                    await saveSelectedSize(selectedSize);
+                  },
+                  fillColor: Colors.blue,
+                  selectedColor: Colors.white,
+                  constraints: const BoxConstraints(
+                    minHeight: 40.0,
+                    minWidth: 40.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          //  Quantity container
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'Quantity:',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+
+                //  Add Btn
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    if (isSizeSelected) {
+                      setState(() {
+                        cartController.addToCart(
+                          widget.imageName,
+                          int.parse(selectedSize),
+                          1,
+                          widget.imagePath,
+                        );
+                        isQuantitySelected = true;
+                      });
+                    }
+                  },
+                ),
+
+                //  Qty No.
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Obx(
+                    () {
+                      final cartKey = '${widget.imageName}';
+                      final quantity = cartController.cart[cartKey];
+                      return Text(
+                        (quantity != null ? quantity['quantity'] : 0)
+                            .toString(),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                //  Remove Btn
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () {
+                    cartController.remove(widget.imageName);
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  //  Image in Toggle Btn
+  Widget _buildSizeToggleButton(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Image.asset(
+        'images/size_${sizes[index]}.png',
+        width: 35,
+        height: 35,
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+}
