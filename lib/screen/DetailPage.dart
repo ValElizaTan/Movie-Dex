@@ -7,9 +7,9 @@ import '../controllers/CartController.dart';
 import 'CartPage.dart';
 
 class DetailPage extends StatefulWidget {
-  final String imageName;
-
-  const DetailPage({Key key, this.imageName})
+  final String ticketName;
+  final double ticketPrice;
+  const DetailPage({Key key, this.ticketName, this.ticketPrice})
       : super(key: key);
 
   @override
@@ -17,41 +17,13 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  List<String> sizes = ['36', '37', '38', '39', '40'];
-  //  ToggleBTN shoesize
-  List<bool> isSelected = [false, false, false, false, false];
-  //  Shoesize selected
-  bool isSizeSelected = false;
   //  Quantity selected
   bool isQuantitySelected = false;
-  String selectedSize = '';
 
   @override
   //  SharedPreference: store user data
   void initState() {
     super.initState();
-    loadSelectedSize();
-  }
-
-  Future<void> loadSelectedSize() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      selectedSize = prefs.getString('selectedSize') ?? '';
-      isSizeSelected = selectedSize.isNotEmpty;
-
-      // Update Selected based on Size
-      if (isSizeSelected) {
-        int selectedIndex = sizes.indexOf(selectedSize);
-        for (int i = 0; i < isSelected.length; i++) {
-          isSelected[i] = i == selectedIndex;
-        }
-      }
-    });
-  }
-
-  Future<void> saveSelectedSize(String size) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedSize', size);
   }
 
   Widget build(BuildContext context) {
@@ -81,11 +53,9 @@ class _DetailPageState extends State<DetailPage> {
               child: IconButton(
                 icon: Icon(
                   Icons.shopping_cart,
-                  color: isSizeSelected && isQuantitySelected
-                      ? Colors.white
-                      : Colors.black26,
+                  color: isQuantitySelected ? Colors.white : Colors.black26,
                 ),
-                onPressed: isSizeSelected && isQuantitySelected
+                onPressed: isQuantitySelected
                     ? () {
                         Get.to(() => CartPage());
                       }
@@ -101,11 +71,11 @@ class _DetailPageState extends State<DetailPage> {
             height: 30,
           ),
 
-          //  Image Name
+          //  Name
           Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-              widget.imageName,
+              widget.ticketName,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 30,
@@ -113,59 +83,7 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
           ),
-
-          //  Shoe Size Container
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    'Shoe Size:',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                ToggleButtons(
-                  children: List.generate(
-                    sizes.length,
-                    (index) => _buildSizeToggleButton(index),
-                  ),
-                  isSelected: isSelected,
-                  onPressed: (int index) async {
-                    setState(() {
-                      for (int i = 0; i < isSelected.length; i++) {
-                        isSelected[i] = i == index;
-                      }
-                      selectedSize = sizes[index];
-                      isSizeSelected = true;
-                      if (isQuantitySelected) {
-                        cartController.addToCart(
-                          widget.imageName,
-                          int.parse(selectedSize),
-                          cartController.getQuantity(widget.imageName),
-                          widget.imagePath,
-                        );
-                      }
-                    });
-                    await saveSelectedSize(selectedSize);
-                  },
-                  fillColor: Colors.blue,
-                  selectedColor: Colors.white,
-                  constraints: const BoxConstraints(
-                    minHeight: 40.0,
-                    minWidth: 40.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          //  Quantity container
+          // Price & Quantity container
           Container(
             margin: const EdgeInsets.only(top: 20),
             child: Row(
@@ -187,13 +105,11 @@ class _DetailPageState extends State<DetailPage> {
                 IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
-                    if (isSizeSelected) {
+                    if (isQuantitySelected) {
                       setState(() {
                         cartController.addToCart(
-                          widget.imageName,
-                          int.parse(selectedSize),
+                          widget.ticketName,
                           1,
-                          widget.imagePath,
                         );
                         isQuantitySelected = true;
                       });
@@ -206,7 +122,7 @@ class _DetailPageState extends State<DetailPage> {
                   padding: EdgeInsets.all(8),
                   child: Obx(
                     () {
-                      final cartKey = '${widget.imageName}';
+                      final cartKey = '${widget.ticketName}';
                       final quantity = cartController.cart[cartKey];
                       return Text(
                         (quantity != null ? quantity['quantity'] : 0)
@@ -224,7 +140,7 @@ class _DetailPageState extends State<DetailPage> {
                 IconButton(
                   icon: Icon(Icons.remove),
                   onPressed: () {
-                    cartController.remove(widget.imageName);
+                    cartController.remove(widget.ticketName);
                     setState(() {});
                   },
                 ),
@@ -235,18 +151,162 @@ class _DetailPageState extends State<DetailPage> {
       ),
     );
   }
+}
+ */
+import 'package:badges/badges.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../controllers/CartController.dart';
+import 'CartPage.dart';
 
-  //  Image in Toggle Btn
-  Widget _buildSizeToggleButton(int index) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Image.asset(
-        'images/size_${sizes[index]}.png',
-        width: 35,
-        height: 35,
-        fit: BoxFit.contain,
+class DetailPage extends StatefulWidget {
+  final String ticketName;
+  final String ticketPrice;
+
+  const DetailPage({Key key, this.ticketName, this.ticketPrice})
+      : super(key: key);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  bool isQuantitySelected = false;
+  var cartController = Get.put(CartController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Details'),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Badge(
+              badgeColor: Colors.orange.withOpacity(1),
+              position: BadgePosition.topEnd(top: 0, end: 5),
+              badgeContent: Obx(
+                () => Text(
+                  cartController.cartCount.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: isQuantitySelected ? Colors.white : Colors.black26,
+                ),
+                onPressed: isQuantitySelected
+                    ? () {
+                        Get.to(() => CartPage());
+                      }
+                    : null,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Image(
+            image: AssetImage("images/ticket_8.png"),
+            fit: BoxFit.contain,
+            height: 270,
+            width: 270,
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              widget.ticketName,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              widget.ticketPrice,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'Quantity:',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    if (isQuantitySelected) {
+                      setState(() {
+                        cartController.addToCart(
+                          widget.ticketName,
+                          1,
+                          double.parse(widget.ticketPrice.replaceAll('\$', '')),
+                        );
+                        isQuantitySelected = true;
+                      });
+                    }
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Obx(
+                    () {
+                      final cartKey = '${widget.ticketName}';
+                      final quantity = cartController.cart[cartKey];
+                      return Text(
+                        (quantity != null ? quantity['quantity'] : 0)
+                            .toString(),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () {
+                    cartController.remove(widget.ticketName);
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
- */

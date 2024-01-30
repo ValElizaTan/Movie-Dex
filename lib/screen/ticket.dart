@@ -84,11 +84,12 @@ class Tickets extends StatelessWidget {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  /* Get.to(
+                  Get.to(
                   () => DetailPage(
-                    imageName: _ticketName[index],
+                    ticketName: ticketName,
+                    ticketPrice: ticketPrice,
                   ),
-                ); */
+                );
                 },
               ),
             ],

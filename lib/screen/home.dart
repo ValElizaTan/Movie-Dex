@@ -7,6 +7,7 @@ import 'package:project_1/utility/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 import 'drawer.dart';
+import 'ticket.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -233,6 +234,12 @@ class DescriptionScreen extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Get.to(() => Tickets());
+            },
+            child: Text('Buy Ticket'),
           ),
         ],
       ),

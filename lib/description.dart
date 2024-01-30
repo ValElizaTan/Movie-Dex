@@ -21,67 +21,73 @@ class Description extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        child: ListView(children: [
-          Container(
-            height: 250,
-            child: Stack(
-              children: [
-                Positioned(
-                  child: Container(
-                    height: 250,
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.network(
-                      bannerurl,
-                      fit: BoxFit.cover,
+        child: ListView(
+          children: [
+            Container(
+              height: 250,
+              child: Stack(
+                children: [
+                  Positioned(
+                    child: Container(
+                      height: 250,
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.network(
+                        bannerurl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 10,
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10),
+                  Positioned(
+                    bottom: 10,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: modified_text(
+                        text: '⭐ Average Rating - ' + vote,
+                        size: 16,
+                      ),
                     ),
-                    child: modified_text(text: '⭐ Average Rating - ' + vote, size: 16,),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 15),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: modified_text(
+                  text: name != null ? name : 'Not Loaded', size: 24),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child:
+                  modified_text(text: 'Released On - ' + launch_on, size: 14),
+            ),
+            Row(
+              children: [
+                Container(
+                  height: 200,
+                  width: 100,
+                  child: Image.network(posterurl),
+                ),
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: modified_text(text: description, size: 18),
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(height: 15),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: modified_text(
-                text: name != null ? name : 'Not Loaded', size: 24),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: modified_text(text: 'Released On - ' + launch_on, size: 14),
-          ),
-          Row(
-            children: [
-              Container(
-                height: 200,
-                width: 100,
-                child: Image.network(posterurl),
-              ),
-              Flexible(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: modified_text(text: description, size: 18),
-                ),
-              ),
-            ],
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Get.to(() => Tickets());
-            },
-            child: Text('Buy Ticket'),
-          ),
-        ]),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => Tickets());
+              },
+              child: Text('Buy Ticket'),
+            ),
+          ],
+        ),
       ),
     );
   }
