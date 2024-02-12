@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_1/screen/aboutus.dart';
+import 'package:project_1/screen/cinemapage.dart';
 
 import 'controllers/UserController.dart';
 import 'screen/drawer.dart';
@@ -52,7 +53,7 @@ class _MyAppState extends State<MyApp> {
               case 3:
                 return AboutUs();
               case 4:
-                return SearchTheatre();
+                return CinemaPage();
               default:
                 return Login();
             }

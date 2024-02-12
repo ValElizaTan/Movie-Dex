@@ -1,57 +1,61 @@
-/* import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_firestoreapp/model/theatre.dart';
+import "package:cloud_firestore/cloud_firestore.dart";
+import "package:project_1/model/cinema.dart";
 
 class FirestoreService {
-  // Create a CollectionReference called theatreCollection that references
-  // the firestore collection
-  final CollectionReference theatreCollection =
-      FirebaseFirestore.instance.collection('theatres');
+  // Create a CollectionReference call cinemaCollection that references
+  // the firestore collction
+  final CollectionReference cinemaCollection =
+      FirebaseFirestore.instance.collection('cinema');
 
-  Future<void> addTheatreData(
-      String theatrename, String location) async {
-    var docRef = FirestoreService().theatreCollection.doc();
+  Future<void> addCinemaData(
+      String name, String address, String latitude, String longitude) async {
+    var docRef = FirestoreService().cinemaCollection.doc();
     print('add docRef:' + docRef.id);
-    await theatreCollection.doc(docRef.id).set({
+    await cinemaCollection.doc(docRef.id).set({
       "uid": docRef.id,
-      "name": theatrename,
-      "location": location,
+      "name": name,
+      "address": address,
+      "latitude": latitude,
+      "longitude": longitude,
     });
   }
 
-  Future<List<Theatre>> readTheatreData() async {
-    List<Theatre> theatreList = [];
-    QuerySnapshot snapshot = await theatreCollection.get();
+  Future<List<Cinema>> readCinemaData() async {
+    List<Cinema> cinemaList = [];
+    QuerySnapshot snapshot = await cinemaCollection.get();
 
     snapshot.docs.forEach((document) {
-      Theatre theatre = Theatre.fromMap(document.data());
-      theatreList.add(theatre);
+      Cinema cinema = Cinema.fromMap(document.data());
+      cinemaList.add(cinema);
     });
-    print('TheatreList: $theatreList');
-    return theatreList;
+    print("CinemaList: $cinemaList");
+    return cinemaList;
   }
 
-  Future<void> deleteTheatreData(String docId) async {
-    theatreCollection.doc(docId).delete();
+  Future<void> deleteCinemaData(String docld) async {
+    cinemaCollection.doc(docld).delete();
 
-    print("deleting uid:" + docId);
+    print("deleting uid:" + docld);
   }
 
-  Future<void> updateTheatreData(
-      String theatrename, String location) async {
-    var docRef = FirestoreService().theatreCollection.doc();
+  Future<void> updateCinemaData(
+      String name, String address, String latitude, String longitude) async {
+    var docRef = FirestoreService().cinemaCollection.doc();
     print('update docRef:' + docRef.id);
-    await theatreCollection.doc(docRef.id).update({
+    await cinemaCollection.doc(docRef.id).update({
       "uid": docRef.id,
-      "name": theatrename,
-      "location": location,
+      "name": name,
+      "address": address,
+      "latitude": latitude,
+      "longitude": longitude,
     });
   }
 
-  Future<void> deleteTheatreDoc() async {
-    await theatreCollection.get().then((snapshot) {
+  Future<void> deleteCinemaDoc() async {
+    await cinemaCollection.get().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.docs) {
         ds.reference.delete();
       }
     });
   }
-} */
+}

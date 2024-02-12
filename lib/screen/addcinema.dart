@@ -1,28 +1,24 @@
-/* import 'package:flutter/material.dart';
-
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
 import 'package:project_1/services/firestore_service.dart';
 
-import 'drawer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class AddTheatre extends StatefulWidget {
+class AddCinemaPage extends StatefulWidget {
   @override
-  State<AddTheatre> createState() => _AddTheatreState();
+  State<AddCinemaPage> createState() => _AddCinemaPageState();
 }
 
-class _AddTheatreState extends State<AddTheatre> {
-  String bookAuthor;
-  String bookTitle;
-  String bookDescription;
+class _AddCinemaPageState extends State<AddCinemaPage> {
+  String name;
+  String address;
+  String latitude;
+  String longitude;
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Movie Dex ❤️'),
-      ),
-      drawer: MyDrawer(),
+      appBar: AppBar(title: Text('Saving Cinema'), actions: <Widget>[]),
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -31,35 +27,35 @@ class _AddTheatreState extends State<AddTheatre> {
           child: Column(children: [
             TextFormField(
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(labelText: 'Cinema Name'),
+              decoration: InputDecoration(labelText: 'Name'),
               validator: (val) => val.length == 0 ? "Enter Cinema Name" : null,
-              onSaved: (val) => this.theatrename = val,
+              onSaved: (val) => this.name = val,
             ),
             TextFormField(
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(labelText: 'Book Title'),
-              validator: (val) => val.length == 0 ? "Enter Book Title" : null,
-              onSaved: (val) => this.theatreaddress = val,
+              decoration: InputDecoration(labelText: 'Cinema Address'),
+              validator: (val) => val.length == 0 ? "Enter Cinema Address" : null,
+              onSaved: (val) => this.address = val,
             ),
             TextFormField(
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(labelText: 'Book Description'),
+              decoration: InputDecoration(labelText: 'Cinema Latitude'),
               validator: (val) =>
-                  val.length == 0 ? "Enter Book Description" : null,
+                  val.length == 0 ? "Enter Cinema Latitude" : null,
               onSaved: (val) => this.latitude = val,
             ),
             TextFormField(
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(labelText: 'Book Description'),
+              decoration: InputDecoration(labelText: 'Cinema longitude'),
               validator: (val) =>
-                  val.length == 0 ? "Enter Book Description" : null,
-              onSaved: (val) => this.longtitude = val,
+                  val.length == 0 ? "Enter Cinema longitude" : null,
+              onSaved: (val) => this.longitude = val,
             ),
             Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: RaisedButton(
                 onPressed: _submit,
-                child: Text('Saved Cinema Record'),
+                child: Text('Saved Book Cinema'),
               ),
             )
           ]),
@@ -75,11 +71,9 @@ class _AddTheatreState extends State<AddTheatre> {
       return null;
     }
 
-    FirestoreService()
-        .addtheatreData(theatrename, theatreaddress, latitude, longtitude);
+    FirestoreService().addCinemaData(name, address, latitude, longitude);
 
     Fluttertoast.showToast(
         msg: "Data save successfully", gravity: ToastGravity.TOP);
   }
 }
- */
