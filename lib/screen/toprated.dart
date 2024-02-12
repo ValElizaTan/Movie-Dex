@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:project_1/description.dart';
 import 'package:project_1/utility/text.dart';
 
-import '../description.dart';
 
-class TopRatedMovies extends StatelessWidget {
+class TopRatedMovies extends StatefulWidget {
   final List toprated;
 
   const TopRatedMovies({Key key, this.toprated}) : super(key: key);
+
+  @override
+  _TopRatedMoviesState createState() => _TopRatedMoviesState();
+}
+
+class _TopRatedMoviesState extends State<TopRatedMovies> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +21,7 @@ class TopRatedMovies extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           modified_text(
-            text: 'Top Rated Movies',
+            text: 'Top Rated Movies ⬆️',
             size: 26,
           ),
           SizedBox(height: 10),
@@ -23,7 +29,7 @@ class TopRatedMovies extends StatelessWidget {
             height: 270,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: toprated.length,
+              itemCount: widget.toprated.length,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
@@ -31,14 +37,15 @@ class TopRatedMovies extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Description(
-                          name: toprated[index]['title'],
+                          name: widget.toprated[index]['title'],
                           bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                              toprated[index]['backdrop_path'],
+                              widget.toprated[index]['backdrop_path'],
                           posterurl: 'https://image.tmdb.org/t/p/w500' +
-                              toprated[index]['poster_path'],
-                          description: toprated[index]['overview'],
-                          vote: toprated[index]['vote_average'].toString(),
-                          launch_on: toprated[index]['release_date'],
+                              widget.toprated[index]['poster_path'],
+                          description: widget.toprated[index]['overview'],
+                          vote:
+                              widget.toprated[index]['vote_average'].toString(),
+                          launch_on: widget.toprated[index]['release_date'],
                         ),
                       ),
                     );
@@ -52,7 +59,7 @@ class TopRatedMovies extends StatelessWidget {
                             image: DecorationImage(
                               image: NetworkImage(
                                   'https://image.tmdb.org/t/p/w500' +
-                                      toprated[index]['poster_path']),
+                                      widget.toprated[index]['poster_path']),
                             ),
                           ),
                           height: 200,
@@ -61,8 +68,8 @@ class TopRatedMovies extends StatelessWidget {
                         Container(
                           child: modified_text(
                               size: 15,
-                              text: toprated[index]['title'] != null
-                                  ? toprated[index]['title']
+                              text: widget.toprated[index]['title'] != null
+                                  ? widget.toprated[index]['title']
                                   : 'Loading'),
                         )
                       ],

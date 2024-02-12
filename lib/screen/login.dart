@@ -32,7 +32,6 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: Text('Movie Dex - Login'),
       ),
-      /* drawer: MyDrawer(), */
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

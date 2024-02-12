@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_1/screen/toprated.dart';
-import 'package:project_1/screen/trending.dart';
 
-import 'package:project_1/utility/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 import 'drawer.dart';
+import 'popular.dart';
 import 'ticket.dart';
+import 'toprated.dart';
+import 'trending.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
       'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzhiOTMxMjY1YWVjNTJjOGI5YjllZTY2MWFlNzI5YSIsInN1YiI6IjY1NTQ3OGFjYWM0MTYxMDBhZDI3ZDI4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Y8X6I5tEaojJt9cxreAWroIkFNdqDJQBzYZH9Gpnm4Y';
   List trendingmovies = [];
   List topratedmovies = [];
+  List popularmovies = [];
   List searchResults = [];
 
   @override
@@ -37,12 +38,13 @@ class _HomeState extends State<Home> {
       ),
     );
 
+    Map popularresult = await tmdbWithCustomLogs.v3.movies.getPouplar();
     Map trendingresult = await tmdbWithCustomLogs.v3.trending.getTrending();
     Map topratedresult = await tmdbWithCustomLogs.v3.movies.getTopRated();
-    print((trendingresult));
     setState(() {
       trendingmovies = trendingresult['results'];
       topratedmovies = topratedresult['results'];
+      popularmovies = popularresult['results'];
     });
   }
 
@@ -50,29 +52,32 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movie Dex ❤️'),
+        title: Text('Movie Dex 🎥'),
       ),
       drawer: MyDrawer(),
       backgroundColor: Colors.black,
       body: ListView(
         children: [
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           searchTF(),
           SizedBox(
-            height: 30,
+            height: 10,
           ),
           if (searchResults.isNotEmpty)
             SearchResults(searchResults: searchResults)
           else
             Column(
               children: [
-                TrendingMovies(
-                  trending: trendingmovies,
+                PopularMovies(
+                  popular: popularmovies,
                 ),
                 TopRatedMovies(
                   toprated: topratedmovies,
+                ),
+                TrendingMovies(
+                  trending: trendingmovies,
                 ),
               ],
             ),
@@ -95,11 +100,11 @@ class _HomeState extends State<Home> {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
-            const Radius.circular(5.0),
+            const Radius.circular(25.0),
           ),
         ),
         filled: true,
-        fillColor: Colors.white60,
+        fillColor: Colors.white54,
         contentPadding: EdgeInsets.all(15.0),
         hintText: 'Search movies on TMDb',
       ),

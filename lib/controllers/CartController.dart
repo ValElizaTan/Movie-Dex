@@ -9,12 +9,13 @@ class CartController extends GetxController {
   int get count => _cart.length > 0 ? _cart.values.reduce((a, b) => a + b) : 0;
 
   // Business logic
-  void addToCart(String ticketName, int quantity, double price) {
+  void addToCart(String ticketName, int quantity, String price) {
     String cartKey = '$ticketName';
     if (_cart.containsKey(cartKey)) {
       _cart[cartKey]['quantity'] += quantity;
     } else {
       _cart[cartKey] = {
+        'name': ticketName,
         'quantity': quantity,
         'price': price,
       };
@@ -41,4 +42,25 @@ class CartController extends GetxController {
       update();
     }
   }
+
+  int getQuantity(String ticketName) {
+    String cartKey = '$ticketName';
+    if (_cart.containsKey(cartKey)) {
+      return _cart[cartKey]['quantity'];
+    } else {
+      return 0;
+    }
+  }
+
+  String get totalPrice {
+    double total = 0;
+    cart.values.forEach((item) {
+      total += item['quantity'] * double.parse(item['price']);
+    });
+    return total.toStringAsFixed(2);
+  }
+
+  void clearAllItems() {
+  cart.clear();
+}
 }

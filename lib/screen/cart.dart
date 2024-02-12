@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_1/screen/checkout.dart';
 
 import '../controllers/CartController.dart';
 import 'ticket.dart';
@@ -45,7 +46,7 @@ class CartPage extends StatelessWidget {
             String cartKey = cart.keys.toList()[index];
             String name = cart[cartKey]['name'];
             int count = cart[cartKey]['quantity'];
-            double price = cart[cartKey]['price'];
+            String price = cart[cartKey]['price'];
 
             return Card(
               color: Colors.cyan[100],
@@ -55,24 +56,35 @@ class CartPage extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  //  Quantity
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      //  Name
                       Text(
-                        'Name: $name',
+                        '$name',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.w500),
+                            color: Colors.black,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500),
                       ),
+                      //  Quantity
                       Text(
                         'Quantity: $count',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.w500),
+                            color: Colors.black,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500),
                       ),
+                      //  Price
                       Text(
                         'Price: $price',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.w500),
+                            color: Colors.black,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -86,12 +98,50 @@ class CartPage extends StatelessWidget {
                     onPressed: () {
                       cartController.clear(cartKey);
                     },
+                    color: Colors.black,
                   ),
                 ],
               ),
             );
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          //  Calculate total price
+          double totalPrice = 0.0;
+          cart.forEach((key, value) {
+            totalPrice += double.parse(value['price']) * value['quantity'];
+          });
+          //  Clear items
+          cartController.clearAllItems();
+          //  Show total price and initiate checkout
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Total Price'),
+              content: Text('Total Price: \$${totalPrice.toStringAsFixed(2)}'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Get.to(() => Checkout());
+                  },
+                  child: Text('Checkout'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'),
+                ),
+              ],
+            ),
+          );
+        },
+        label: Text('Checkout'),
+        icon: Icon(Icons.shopping_cart),
+        backgroundColor: Colors.blue,
       ),
     );
   }

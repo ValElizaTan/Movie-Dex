@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'DetailPage.dart';
+import 'detail.dart';
+import 'home.dart';
 
 class Tickets extends StatelessWidget {
   final _ticketName = [
@@ -32,6 +33,11 @@ class Tickets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Get.to(() => Home());
+            }),
         title: Text('Tickets'),
       ),
       body: ListView.builder(

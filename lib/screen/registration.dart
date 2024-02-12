@@ -32,7 +32,6 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         title: Text('Movie Dex - Register'),
       ),
-      /* drawer: MyDrawer(), */
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
