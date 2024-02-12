@@ -6,8 +6,6 @@ import 'package:getwidget/getwidget.dart';
 import 'drawer.dart';
 import 'profile.dart';
 
-final _formKey = GlobalKey<FormState>();
-
 class EditProfile extends StatelessWidget {
   final firstName = TextEditingController();
   final lastName = TextEditingController();
@@ -17,116 +15,81 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movie Dex ❤️'),
+        title: Text('Edit Profile'),
       ),
       drawer: MyDrawer(),
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.always,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Edit Profile',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                    Image(
-                      image: AssetImage("images/editprofile.gif"),
-                      width: 60,
-                      height: 60,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30),
-                containerForm('First Name:', firstName),
-                SizedBox(height: 15),
-                containerForm('Last Name:', lastName),
-                SizedBox(height: 30),
-                GFButton(
-                  onPressed: () {
-                    userController.updateFirstName(firstName.text);
-                    userController.updateLastName(lastName.text);
-                    Get.off(Profile());
-                  },
-                  text: "Save Profile",
-                  shape: GFButtonShape.pills,
-                  icon: Icon(Icons.save_alt_rounded),
-                  color: Colors.purpleAccent[700],
-                ),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Edit Profile',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  ),
+                  Image(
+                    image: AssetImage("images/editprofile.gif"),
+                    width: 60,
+                    height: 60,
+                  ),
+                ],
+              ),
+              SizedBox(height: 30),
+              _buildTextField('First Name', firstName),
+              SizedBox(height: 15),
+              _buildTextField('Last Name', lastName),
+              SizedBox(height: 30),
+              GFButton(
+                onPressed: _saveProfile,
+                text: "Save Profile",
+                shape: GFButtonShape.pills,
+                icon: Icon(Icons.save_alt_rounded),
+                color: Colors.cyan[700],
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  //  VALIDATION
-  final RegExp nameRegex =
-      new RegExp(r"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$");
+  void _saveProfile() {
+    userController.updateFirstName(firstName.text);
+    userController.updateLastName(lastName.text);
+    Get.off(Profile());
+  }
 
-  //  TEXT FORM
-  TextFormField textFormField(TextEditingController name) {
-    TextInputType textInputType;
-    String hint = 'Please enter your ';
-    String msg;
-    RegExp regExp;
-
-    if (name == this.firstName || name == this.lastName) {
-      textInputType = TextInputType.name;
-      hint = hint + 'name';
-      msg = 'Please enter valid name';
-      regExp = nameRegex;
-    }
-
+  Widget _buildTextField(String label, TextEditingController controller) {
     return TextFormField(
-      controller: name,
+      controller: controller,
       decoration: InputDecoration(
-        hintText: hint,
-        contentPadding: const EdgeInsets.all(10),
-        isDense: true,
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.white),
+        contentPadding: EdgeInsets.all(10),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black38),
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.cyan[700], width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.cyan[700], width: 2),
         ),
       ),
-      keyboardType: textInputType,
+      style: TextStyle(color: Colors.white),
+      keyboardType: TextInputType.name,
       validator: (value) {
-        if (!regExp.hasMatch(value) && value.isNotEmpty) {
-          return msg;
-        } else {
-          return null;
+        if (value.trim().isEmpty) {
+          return 'Please enter your $label';
         }
+        return null;
       },
-    );
-  }
-
-  //  CONTAINER FORM
-  Container containerForm(String label, TextEditingController name) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Text(label),
-          ),
-          Expanded(
-            flex: 3,
-            child: textFormField(name),
-          ),
-        ],
-      ),
     );
   }
 }

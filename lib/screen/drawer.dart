@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_1/controllers/DrawerController.dart' as DrawerControl;
 import 'package:project_1/controllers/UserController.dart';
-import 'package:project_1/screen/map.dart';
 import 'package:project_1/screen/showcinema.dart';
 
 import 'aboutus.dart';
 import 'home.dart';
 import 'login.dart';
 import 'profile.dart';
-import 'searchtheatre.dart';
 
 class MyDrawer extends StatelessWidget {
   UserController userController = Get.find<UserController>();
@@ -19,7 +16,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      //Use SizeBox to contain Drawer
+      //  Use SizeBox to contain Drawer
       width: MediaQuery.of(context).size.width * 0.8,
       child: Drawer(
         child: Column(
@@ -62,10 +59,6 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-                leading: Icon(Icons.login),
-                title: Text('Login'),
-                onTap: () => Get.offAll(() => Login())),
-            ListTile(
                 leading: Icon(Icons.home),
                 title: Text('Home'),
                 onTap: () => Get.offAll(() => Home())),
@@ -74,13 +67,13 @@ class MyDrawer extends StatelessWidget {
                 title: Text('Profile'),
                 onTap: () => Get.offAll(() => Profile())),
             ListTile(
+                leading: Icon(Icons.map_sharp),
+                title: Text('Find Cinema'),
+                onTap: () => Get.offAll(() => SearchCinema())),
+            ListTile(
                 leading: Icon(Icons.info_outline),
                 title: Text('About Us'),
                 onTap: () => Get.offAll(() => AboutUs())),
-            ListTile(
-                leading: Icon(Icons.map_sharp),
-                title: Text('Search Cinema'),
-                onTap: () => Get.offAll(() => SearchCinema())),
             ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Logout'),

@@ -12,9 +12,9 @@ class Tickets extends StatelessWidget {
     'Golden Village - Adults',
     'Golden Village - Students',
     'Golden Village - Senior Citizens',
-    'Cathay Cineplexes  - Adults',
-    'Cathay Cineplexes  - Students',
-    'Cathay Cineplexes  - Senior Citizens'
+    'Cathay Cineplexes - Adults',
+    'Cathay Cineplexes - Students',
+    'Cathay Cineplexes - Senior Citizens'
   ];
 
   final _ticketPrice = [
@@ -43,65 +43,49 @@ class Tickets extends StatelessWidget {
       body: ListView.builder(
         itemCount: _ticketName.length,
         itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            splashColor: Colors.blueAccent,
-            highlightColor: Colors.blueAccent.withOpacity(1.0),
-            child:
-                _buildGridCards(index, _ticketName[index], _ticketPrice[index]),
-          );
+          return _buildTicketCard(_ticketName[index], _ticketPrice[index]);
         },
       ),
     );
   }
 
-  Widget _buildGridCards(int index, String ticketName, String ticketPrice) {
+  Widget _buildTicketCard(String ticketName, String ticketPrice) {
     return Card(
-      color: Colors.white,
-      elevation: 5,
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
       ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Ticket Name
-              Text(
-                ticketName,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Spacer(),
-              // Price
-              Text(
-                ticketPrice,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              Spacer(),
-              // Add Btn
-              IconButton(
-                icon: Icon(
-                  Icons.add_circle,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Get.to(
-                  () => DetailPage(
-                    ticketName: ticketName,
-                    ticketPrice: ticketPrice,
-                  ),
-                );
-                },
-              ),
-            ],
+      child: ListTile(
+        contentPadding: EdgeInsets.all(16),
+        title: Text(
+          ticketName,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
+        ),
+        subtitle: Text(
+          'Price: $ticketPrice',
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        trailing: IconButton(
+          icon: Icon(Icons.add_circle),
+          color: Colors.blue,
+          onPressed: () {
+            _navigateToDetailPage(ticketName, ticketPrice);
+          },
         ),
       ),
     );
+  }
+
+  void _navigateToDetailPage(String ticketName, String ticketPrice) {
+    Get.to(() => DetailPage(
+          ticketName: ticketName,
+          ticketPrice: ticketPrice,
+        ));
   }
 }

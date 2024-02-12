@@ -54,53 +54,41 @@ class CartPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //  Name
-                      Text(
-                        '$name',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      //  Quantity
-                      Text(
-                        'Quantity: $count',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      //  Price
-                      Text(
-                        'Price: $price',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-
-                  // Clear
-                  IconButton(
-                    icon: Icon(
-                      Icons.clear,
-                    ),
-                    onPressed: () {
-                      cartController.clear(cartKey);
-                    },
+              child: ListTile(
+                title: Text(
+                  name,
+                  style: TextStyle(
                     color: Colors.black,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Quantity: $count',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                    Text(
+                      'Price: $price',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    cartController.clear(cartKey);
+                  },
+                  color: Colors.black,
+                ),
               ),
             );
           },

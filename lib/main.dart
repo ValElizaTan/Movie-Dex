@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_1/screen/aboutus.dart';
-import 'package:project_1/screen/cinemapage.dart';
 import 'package:project_1/screen/showcinema.dart';
 
 import 'controllers/UserController.dart';
@@ -11,9 +10,9 @@ import 'screen/home.dart';
 import 'screen/login.dart';
 import 'screen/profile.dart';
 import 'screen/aboutus.dart';
+
 import 'package:project_1/controllers/DrawerController.dart' as drawerControl;
 
-import 'screen/searchtheatre.dart';
 
 Future<void> main() async {
   Get.put(drawerControl.DrawerController());
