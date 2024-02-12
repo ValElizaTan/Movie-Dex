@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class MapPage extends StatefulWidget {
-  final LocationData userLocation;
-  const MapPage({Key key, this.userLocation}) : super(key: key);
+  final double cinemaLatitude;
+  final double cinemaLongitude;
+
+  MapPage({
+    Key key,
+    @required this.cinemaLatitude,
+    @required this.cinemaLongitude,
+  }) : super(key: key);
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -14,57 +21,88 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   Completer<GoogleMapController> _controller = Completer();
 
-  //Custom Marker Icon
   BitmapDescriptor _locIcon;
-  final Set<Marker> listMarkers = {};
+  Set<Polyline> _polylines = {};
+  Set<Marker> _markers = {};
 
-  //Create Custom Marker
   Future<BitmapDescriptor> _setLocCustomMarker() async {
     BitmapDescriptor bIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.5), 'images/home-map-pin.png');
-
     return bIcon;
   }
 
   @override
-
-  //Set initState
   void initState() {
     super.initState();
-
     _setLocCustomMarker().then((value) {
       _locIcon = value;
-      _locIcon != null
-          ? setState(() {
-              listMarkers.add(Marker(
-                  markerId: MarkerId('1'),
-                  position: LatLng(widget.userLocation.latitude,
-                      widget.userLocation.longitude),
-                  infoWindow: InfoWindow(title: 'Current Location'),
-                  icon: _locIcon));
-            })
-          : DoNothingAction();
     });
   }
 
+  @override
   Widget build(BuildContext context) {
-    CameraPosition _currentPos = CameraPosition(
-        bearing: 0.0,
-        target:
-            LatLng(widget.userLocation.latitude, widget.userLocation.longitude),
-        tilt: 0,
-        zoom: 17);
     return Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,
-        //Set Marker
-        markers: Set.from(listMarkers),
         myLocationEnabled: true,
-        initialCameraPosition: _currentPos,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(widget.cinemaLatitude, widget.cinemaLongitude),
+          zoom: 14.0,
+        ),
+        markers: _markers,
+        polylines: _polylines,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
+          _addPolyline();
         },
       ),
     );
+  }
+
+  void _addPolyline() async {
+    LocationData currentLocation = await _getLocation();
+
+    if (currentLocation != null) {
+      List<LatLng> points = [
+        LatLng(currentLocation.latitude, currentLocation.longitude),
+        LatLng(widget.cinemaLatitude, widget.cinemaLongitude),
+      ];
+
+      _polylines.add(
+        Polyline(
+          polylineId: PolylineId('route'),
+          color: Colors.red,
+          points: points,
+          width: 8,
+          startCap: Cap.roundCap,
+          endCap: Cap.roundCap,
+        ),
+      );
+
+      _markers.add(
+        Marker(
+          markerId: MarkerId('current_location'),
+          position: LatLng(currentLocation.latitude, currentLocation.longitude),
+          icon: _locIcon,
+          infoWindow: InfoWindow(title: 'Current Location'),
+        ),
+      );
+
+      _markers.add(
+        Marker(
+          markerId: MarkerId('destination_location'),
+          position: LatLng(widget.cinemaLatitude, widget.cinemaLongitude),
+          infoWindow: InfoWindow(title: 'Destination Location'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
+        ),
+      );
+
+      setState(() {});
+    }
+  }
+
+  Future<LocationData> _getLocation() async {
+    Location location = Location();
+    return await location.getLocation();
   }
 }

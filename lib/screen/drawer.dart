@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_1/controllers/DrawerController.dart' as DrawerControl;
 import 'package:project_1/controllers/UserController.dart';
-import 'package:project_1/screen/cinemapage.dart';
 import 'package:project_1/screen/map.dart';
+import 'package:project_1/screen/showcinema.dart';
 
 import 'aboutus.dart';
 import 'home.dart';
@@ -80,7 +80,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
                 leading: Icon(Icons.map_sharp),
                 title: Text('Search Cinema'),
-                onTap: () => Get.offAll(() => CinemaPage())),
+                onTap: () => Get.offAll(() => SearchCinema())),
             ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Logout'),

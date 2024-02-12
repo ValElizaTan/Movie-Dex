@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 
 import 'addcinema.dart';
 import 'drawer.dart';
@@ -50,3 +50,4 @@ class _CinemaPageState extends State<CinemaPage> {
     );
   }
 }
+ */
