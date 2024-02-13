@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'home.dart';
 
 class Checkout extends StatefulWidget {
   @override
@@ -26,9 +29,9 @@ class _CheckoutState extends State<Checkout> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.to(() => Home());
               },
-              child: Text('Back to Cart'),
+              child: Text('Back to Home'),
             ),
           ],
         ),

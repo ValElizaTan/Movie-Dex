@@ -5,7 +5,6 @@ import 'package:project_1/screen/login.dart';
 import 'package:project_1/services/firebaseauth_service.dart';
 
 import '../style.dart';
-import 'drawer.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -13,7 +12,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  //Controllers for email & pwd
+  //  Controllers for email & pwd
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 

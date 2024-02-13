@@ -1,6 +1,6 @@
 # project_1
 
-A new Flutter project.
+A Flutter project, did for school.
 
 ## Getting Started
 

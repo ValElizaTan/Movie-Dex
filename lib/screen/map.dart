@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class MapPage extends StatefulWidget {
   final double cinemaLatitude;
@@ -47,7 +46,7 @@ class _MapPageState extends State<MapPage> {
         myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.cinemaLatitude, widget.cinemaLongitude),
-          zoom: 14.0,
+          zoom: 17.0,
         ),
         markers: _markers,
         polylines: _polylines,

@@ -29,7 +29,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int index = 0;
-  List<Widget> list = [Login(), Home(), Profile(), AboutUs()];
+  List<Widget> list = [Login(), Home(), Profile(), AboutUs(), SearchCinema()];
 
   @override
   Widget build(BuildContext context) {
