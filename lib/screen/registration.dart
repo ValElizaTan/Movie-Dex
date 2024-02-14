@@ -78,7 +78,8 @@ class _RegisterState extends State<Register> {
                   errorText: !pwdRegex
                               .hasMatch(passwordController.text.trim()) &&
                           passwordController.text.isNotEmpty
-                      ? 'Password must contain at least 6 characters, including uppercase, lowercase, numbers, and special characters'
+                      ? 'Password must contain at least 6 characters, including uppercase,\n'
+                        'lowercase, numbers, and special characters'
                       : null,
                 ),
               ),
@@ -120,7 +121,7 @@ class _RegisterState extends State<Register> {
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 
   final RegExp pwdRegex = new RegExp(
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*_~]).{8,}$');
 
   final RegExp cfmpwdRegex = new RegExp(
       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');

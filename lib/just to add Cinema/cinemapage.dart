@@ -1,8 +1,9 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:project_1/screen/drawer.dart';
+import 'package:project_1/screen/showcinema.dart';
 
 import 'addcinema.dart';
-import 'drawer.dart';
-import 'showcinema.dart';
+
 
 class CinemaPage extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class _CinemaPageState extends State<CinemaPage> {
                 tooltip: 'add record',
                 onPressed: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => RecordsPage()));
+                      MaterialPageRoute(builder: (context) => SearchCinema()));
                 },
               ),
             ],
@@ -50,4 +51,3 @@ class _CinemaPageState extends State<CinemaPage> {
     );
   }
 }
- */

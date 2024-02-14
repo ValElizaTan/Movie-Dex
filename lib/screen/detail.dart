@@ -116,6 +116,11 @@ class _DetailPageState extends State<DetailPage> {
                         1,
                         widget.ticketPrice.replaceAll('\$', '').toString(),
                       );
+                      Get.snackbar(
+                        'Added to Cart',
+                        'Item added to cart successfully!',
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
                     });
                   },
                 ),

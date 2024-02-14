@@ -46,7 +46,7 @@ class _MapPageState extends State<MapPage> {
         myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.cinemaLatitude, widget.cinemaLongitude),
-          zoom: 17.0,
+          zoom: 25.0,
         ),
         markers: _markers,
         polylines: _polylines,
