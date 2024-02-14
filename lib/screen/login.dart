@@ -7,7 +7,6 @@ import 'home.dart';
 import 'registration.dart';
 
 class Login extends StatefulWidget {
-
   @override
   State<Login> createState() => _LoginState();
 }
@@ -83,6 +82,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
+            SizedBox(height: 10),
             RaisedButton(
               onPressed: () async {
                 if (validateFields()) {
@@ -102,12 +102,13 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
+            SizedBox(height: 25),
             RaisedButton(
               onPressed: () {
                 print("Navigating to Register screen from Login");
                 Get.offAll(() => Register());
               },
-              child: Text("Don't have an account? Sign Up"),
+              child: Text("Don't have an account? \n Sign Up"),
             ),
           ],
         ),
@@ -176,4 +177,3 @@ class _LoginState extends State<Login> {
     return isValid;
   }
 }
-

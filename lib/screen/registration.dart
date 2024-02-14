@@ -79,11 +79,12 @@ class _RegisterState extends State<Register> {
                               .hasMatch(passwordController.text.trim()) &&
                           passwordController.text.isNotEmpty
                       ? 'Password must contain at least 6 characters, including uppercase,\n'
-                        'lowercase, numbers, and special characters'
+                          'lowercase, numbers, and special characters'
                       : null,
                 ),
               ),
             ),
+            SizedBox(height: 10),
             RaisedButton(
               onPressed: () async {
                 if (validateFields()) {
@@ -103,12 +104,13 @@ class _RegisterState extends State<Register> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
+            SizedBox(height: 25),
             RaisedButton(
               onPressed: () {
                 print("Navigating to Login screen from Register");
                 Get.offAll(() => Login());
               },
-              child: Text("Have an account? Sign In"),
+              child: Text("Have an account? \n Sign In"),
             ),
           ],
         ),
