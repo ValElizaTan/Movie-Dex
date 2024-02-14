@@ -25,12 +25,13 @@ After completion of booking, the user is set to watch their movie of choice.<br>
 - able to contact & send email in About Us page
 <br> 
 ## External API
+<br>
 External APIs that I use is a movie db API & I use it for accessing the information of the movies.
  - https://developer.themoviedb.org/docs
-<br>
+<br><br>
 ## Others
-This project is a starting point for a Flutter application.
-
+<br>
+This project is a starting point for a Flutter application. <br>
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
