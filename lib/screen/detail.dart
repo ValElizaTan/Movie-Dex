@@ -148,6 +148,11 @@ class _DetailPageState extends State<DetailPage> {
                       cartController.remove(widget.ticketName);
                       isQuantitySelected = false;
                     });
+                    Get.snackbar(
+                      'Deleted from Cart',
+                      'Item deleted from cart successfully!',
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
                   },
                 ),
               ],

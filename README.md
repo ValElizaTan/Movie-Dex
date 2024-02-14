@@ -1,9 +1,10 @@
 # CPMAD Project
 Name:  Valerie Tan Wan Xin <br>
-Module Group: L1 <br>
-<br> 
+Module Group: L1 
+<br>
 ## Project Title
-Movie Dex <br>
+Movie Dex 
+<br>
 ## Background
 This app enables the users to search for movie theatres and book movie tickets.<br>
 A list of now showing movies & places where these movies screen.<br>
@@ -25,9 +26,9 @@ After completion of booking, the user is set to watch their movie of choice.<br>
 <br> 
 ## External API
 External APIs that I use is a movie db API & I use it for accessing the information of the movies.
- - https://developer.themoviedb.org/docs <br>
+ - https://developer.themoviedb.org/docs
 <br>
-<br>
+## Others
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
