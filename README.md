@@ -4,6 +4,12 @@ A Flutter app for browsing movies and buying cinema tickets. Users sign in with 
 
 Built for the CPMAD module (Module Group L1) at Nanyang Polytechnic.
 
+## Demo
+
+https://github.com/user-attachments/assets/211b0d83-a0e7-4105-b59b-332510bd17b6
+
+*Signing up and logging in, browsing trending and top-rated movies, buying tickets, and using the cart, cinema map and profile. (3:11)*
+
 ## Features
 
 - **Accounts:** sign up, sign in and log out with Firebase Authentication (email and password).
@@ -78,3 +84,6 @@ In this version the TMDB credentials are written directly in `lib/screen/home.da
 ## Author
 
 Valerie Tan Wan Xin – Nanyang Polytechnic, Module Group L1
+
+
+
